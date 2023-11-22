@@ -8,7 +8,7 @@ int main()
 {
 	MysqlConn M1;
 	//M1.init();
-	//main1();
+	main1();
 }
 
 int main1() {
