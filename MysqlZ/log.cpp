@@ -30,7 +30,7 @@ string GetCurrentTimeA(tm in)
 	return move(out);                          // 用move（string）速度快很多。
 }
 
-int WriteLog(string msg)
+int VLog(string msg)
 {
 	struct tm* local;
 	time_t t;
@@ -41,7 +41,50 @@ int WriteLog(string msg)
 	outfile.open(GetProgramDir() + "\\" + "log.txt", ios::app); //文件的物理地址，文件的打开方式, 如果没有会自动创建
 	if (outfile.is_open())
 	{
-		outfile << dtime << msg << "\n";
+		outfile << msg << "\n";
+		outfile.close();
+		return 0;
+	}
+	else
+	{
+		return 1;
+	}
+}
+
+int sVLog(int level,string file,int line, string func,string msg)
+{
+	struct tm* local;
+	time_t t;
+	t = time(NULL);
+	local = localtime(&t);
+	string dtime = GetCurrentTimeA(*local);
+	ofstream outfile;
+	outfile.open(GetProgramDir() + "\\" + "log.txt", ios::app); //文件的物理地址，文件的打开方式, 如果没有会自动创建
+	if (outfile.is_open())
+	{
+		outfile <<level<< "|"<< dtime <<"|"<< file << "|" << line<<"|" <<func << "|" << msg << "\n";
+		outfile.close();
+		return 0;
+	}
+	else
+	{
+		return 1;
+	}
+}
+
+
+int sVLogFormt(int level, string file, int line, string func, string msg,string msg1)
+{
+	struct tm* local;
+	time_t t;
+	t = time(NULL);
+	local = localtime(&t);
+	string dtime = GetCurrentTimeA(*local);
+	ofstream outfile;
+	outfile.open(GetProgramDir() + "\\" + "log.txt", ios::app); //文件的物理地址，文件的打开方式, 如果没有会自动创建
+	if (outfile.is_open())
+	{
+		outfile << level << "|" << dtime << "|" << file << "|" << line << "|" << func << "|" << msg << msg1 << "\n";
 		outfile.close();
 		return 0;
 	}

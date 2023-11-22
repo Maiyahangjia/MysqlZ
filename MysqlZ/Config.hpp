@@ -1,6 +1,6 @@
 #pragma once
 #include "common.hpp"
-
+using namespace std;
 //方式一读取配置文件
 string getString(string key);
 

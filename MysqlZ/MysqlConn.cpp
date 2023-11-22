@@ -5,13 +5,12 @@ MysqlConn::MysqlConn()
 {
     //获取一个MYSQL句柄
     m_conn = mysql_init(nullptr);
-    WriteLog("mysql_init!!!!");
-    Sleep(500);
+    VLog("mysql_init!!!!");
+
     
     //设置字符集
     mysql_set_character_set(m_conn, "utf8");
-    WriteLog("mysql_set_character_set!!!!");
-    Sleep(500);
+    VLog("mysql_set_character_set!!!!");
 }
 
 MysqlConn:: ~MysqlConn()
@@ -19,11 +18,10 @@ MysqlConn:: ~MysqlConn()
     if (m_conn != nullptr)
     {
         mysql_close(m_conn);
-        WriteLog("关闭当前数据库连接!!!!");
-        Sleep(500);
+        VLog("关闭当前数据库连接!!!!");
     }
-    WriteLog("析构数据库类!!!!");
-    Sleep(500);
+    VLog("析构数据库类!!!!");
+
     freeResult();
 }
 

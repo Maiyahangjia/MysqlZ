@@ -8,7 +8,7 @@ string getString(string key)
 {
     string value;
     ifstream cfgFile;
-    cfgFile.open(":/config.txt", cfgFile.in);//打开文件 cfgFile.in替换 ifstream::in
+    cfgFile.open("C:/Users/85013/source/repos/MysqlZ/config/config.txt", cfgFile.in);//打开文件 cfgFile.in替换 ifstream::in
     if (!cfgFile.is_open())
     {
         cout << "can not open cfg file!" << endl;

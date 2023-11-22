@@ -5,15 +5,19 @@
 
 //测试用的模块函数
 int Mysql();//测试数据库连接
-int Config2();//读取配置文件
+int Config1();//读取配置文件方式一
+int Config2();//读取配置文件方式二
 
 
 
 int main()
 {
+	sVLog(INFO, __FILE__, __LINE__, __func__, "程序开始执行,go go go！！！");
+	Config1();
 	MysqlConn M1;
 	//M1.init();
 	Mysql();
+	sVLog(INFO, __FILE__, __LINE__, __func__, "程序执行结束,end！！！");
 }
 
 int Mysql() {
@@ -26,13 +30,18 @@ int Mysql() {
 	MYSQL mysql;
 	if (!mysql_init(&mysql)) {
 		cout << "初始化失败！" << endl;
+		sVLog(ERROR, __FILE__, __LINE__, __func__, "初始化失败");
 		return EXIT_FAILURE;
 		//exit(1);
 	}
 
 	if (mysql_real_connect(&mysql, host, user, password, database, 0, NULL, 0))
+	{
 		cout << "数据库连接成功" << endl;
+		sVLog(ERROR, __FILE__, __LINE__, __func__, "数据库连接失败");
+	}
 	else {
+		sVLog(ERROR, __FILE__, __LINE__, __func__, "数据库连接失败");
 		cout << "数据库连接失败，错误：" << mysql_error(&mysql) << endl;
 		mysql_close(&mysql);
 		return EXIT_FAILURE;
@@ -68,24 +77,76 @@ int Mysql() {
 }
 
 
+int Config1()
+{
+	/*
+		config.txt的文件内容：
+		ip=localhost
+		port=3306
+		username=root
+		password=root
+		database=zyc
+
+	*/
+	int port = 0;
+	std::string ip;
+	std::string ports;
+	std::string username;
+	std::string password;
+	std::string database;
+	sVLog(INFO, __FILE__, __LINE__, __func__, "读取配置文件开始");
+	ports = getString("port");
+	ip = getString("ip");
+	username = getString("username");
+	password = getString("password");
+	database = getString("database");
+	/*
+	std::cout << "ip:" << ip << std::endl;
+	std::cout << "port:" << ports << std::endl;
+	std::cout << "username:" << username << std::endl;
+	std::cout << "password:" << password << std::endl;
+	std::cout << "database:" << database << std::endl;
+	*/
+	sVLogFormt(INFO, __FILE__, __LINE__, __func__, "ip:", ip);
+	sVLogFormt(INFO, __FILE__, __LINE__, __func__, "port:", getString("port"));
+	sVLogFormt(INFO, __FILE__, __LINE__, __func__, "username", username);
+	sVLogFormt(INFO, __FILE__, __LINE__, __func__, "password", password);
+	sVLogFormt(INFO, __FILE__, __LINE__, __func__, "database", database);
+	sVLog(INFO, __FILE__, __LINE__, __func__, "读取配置文件结束");
+	return 0;
+}
+
  
 int Config2()
 {
+	/*
+		config.txt的文件内容： 
+		ip=localhost
+		port=3306
+		username=root
+		password=root
+		database=zyc
+	
+	*/
 	int port;
-	std::string ipAddress;
+	std::string ip;
 	std::string username;
 	std::string password;
+	std::string database;
 	const char ConfigFile[] = "config.txt";
 	Config configSettings(ConfigFile);
 
 	port = configSettings.Read("port", 0);
-	ipAddress = configSettings.Read("ipAddress", ipAddress);
+	ip = configSettings.Read("ip", ip);
 	username = configSettings.Read("username", username);
 	password = configSettings.Read("password", password);
+	database = configSettings.Read("database", password);
+	
+	std::cout << "ip:" << ip << std::endl;
 	std::cout << "port:" << port << std::endl;
-	std::cout << "ipAddress:" << ipAddress << std::endl;
 	std::cout << "username:" << username << std::endl;
 	std::cout << "password:" << password << std::endl;
+	std::cout << "database:" << password << std::endl;
 
 	return 0;
 }
