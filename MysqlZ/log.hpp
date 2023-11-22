@@ -1,4 +1,4 @@
-#include "common.hpp"
+#include "Config.hpp"
 using namespace std;
 class Vlog {
 public:

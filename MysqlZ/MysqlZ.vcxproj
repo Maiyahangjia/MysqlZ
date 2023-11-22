@@ -134,6 +134,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Config.cpp" />
     <ClCompile Include="ConnectionPool.cpp" />
     <ClCompile Include="log.cpp" />
     <ClCompile Include="MysqlConn.cpp" />
@@ -141,6 +142,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.hpp" />
+    <ClInclude Include="Config.hpp" />
     <ClInclude Include="ConnectionPool.hpp" />
     <ClInclude Include="log.hpp" />
     <ClInclude Include="MysqlConn.hpp" />

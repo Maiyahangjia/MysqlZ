@@ -2,16 +2,21 @@
 //
 
 #include "MysqlConn.hpp"
-int main1();
+
+//测试用的模块函数
+int Mysql();//测试数据库连接
+int Config2();//读取配置文件
+
+
 
 int main()
 {
 	MysqlConn M1;
 	//M1.init();
-	main1();
+	Mysql();
 }
 
-int main1() {
+int Mysql() {
 
 	char host[10] = "localhost";
 	char user[10] = "root";
@@ -59,5 +64,28 @@ int main1() {
 	mysql_free_result(res);
 
 	mysql_close(&mysql);
+	return 0;
+}
+
+
+ 
+int Config2()
+{
+	int port;
+	std::string ipAddress;
+	std::string username;
+	std::string password;
+	const char ConfigFile[] = "config.txt";
+	Config configSettings(ConfigFile);
+
+	port = configSettings.Read("port", 0);
+	ipAddress = configSettings.Read("ipAddress", ipAddress);
+	username = configSettings.Read("username", username);
+	password = configSettings.Read("password", password);
+	std::cout << "port:" << port << std::endl;
+	std::cout << "ipAddress:" << ipAddress << std::endl;
+	std::cout << "username:" << username << std::endl;
+	std::cout << "password:" << password << std::endl;
+
 	return 0;
 }
